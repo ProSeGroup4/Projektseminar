@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>Genetischer Algorithmus</title>
+    </head>
+
+    <body>
+        <div class="Auftragseingabe:" >
+            <div style="color: #0053A6">
+                Auftragseingabe:
+            </div>
+                <input type="checkbox">
+                Alle Aufträge Auswählen
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2"><input type="text" placeholder="Search"></th>
+                            <th><input type="submit" value="asc / desc"></button></th>
+                            <th><input type="submit" value="asc / desc"></button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" value="1"></td>
+                            <td>OBI</td>
+                            <td>#2000</td>
+                            <td>21.05.2022 (09:30)</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" value="1"></td>
+                            <td>Hornbach</td>
+                            <td>#2001</td>
+                            <td>21.05.2022 (10:45)</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" value="1"></td>
+                            <td>Zweiradshop</td>
+                            <td>#2001</td>
+                            <td>21.05.2022 (11:20)</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" value="1"></td>
+                            <td>Bauhaus</td>
+                            <td>#2008</td>
+                            <td>21.05.2022 (13:35)</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" value="1"></td>
+                            <td>IKEA</td>
+                            <td>#2020</td>
+                            <td>21.05.2022 (09:50)</td>
+                        </tr>
+                    </tbody>    
+                </table>
+                <div class="ausgewählte Aufträge"> <!--Abfragen welche inputs aus Aufträge "an" sind-->
+                    Ausgewählte Aufträge:
+                </div>
+            </div>
+        </div>
+        <div class="Optimieren nach:">
+            <div style="color: #0053A6">
+                Optimieren nach:
+            </div>
+            <div class="Auswahlliste">
+                <table>
+                    <tr><td><input checked type="checkbox">Durchlaufzeit</td></tr>
+                    <tr><td><input type="checkbox">Kosten</td></tr>
+                    <tr><td><input type="checkbox">Termintreue</td></tr>
+                </table>
+            </div>
+            <div class="Button">
+                <input type="button" value="Ausführen">
+            </div>
+        </div>
+    </body>
+</html>
