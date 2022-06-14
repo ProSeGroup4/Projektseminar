@@ -3,14 +3,18 @@
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Genetischer Algorithmus</title>
+
+        <style>
+
+        </style>
     </head>
 
     <body>
-        <div class="Auftragseingabe:" >
+        <div class="Auftragseingabe:">
             <div style="color: #0053A6">
                 Auftragseingabe:
             </div>
-                <input type="checkbox">
+                <input type="checkbox" onClick="toggle(this)">
                 Alle Aufträge Auswählen
             <div>
                 <table>
@@ -23,39 +27,41 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox" value="1"></td>
-                            <td>OBI</td>
-                            <td>#2000</td>
-                            <td>21.05.2022 (09:30)</td>
+                            <td><input type="checkbox" name="foo" value="bar1" id="bar1"></td>
+                            <td><label for="bar1">OBI</label></td>
+                            <td><label for="bar1">#2000</label></td>
+                            <td><label for="bar1">21.05.2022 (09:30)</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" value="1"></td>
-                            <td>Hornbach</td>
-                            <td>#2001</td>
-                            <td>21.05.2022 (10:45)</td>
+                            <td><input type="checkbox" name="foo" value="bar2" id="bar2"></td>
+                            <td><label for="bar2">Hornbach</label></td>
+                            <td><label for="bar2">#2001</label></td>
+                            <td><label for="bar2">21.05.2022 (10:45)</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" value="1"></td>
-                            <td>Zweiradshop</td>
-                            <td>#2001</td>
-                            <td>21.05.2022 (11:20)</td>
+                            <td><input type="checkbox" name="foo" value="bar3" id="bar3"></td>
+                            <td><label for="bar3">Zweiradshop</label></td>
+                            <td><label for="bar3">#2001</label></td>
+                            <td><label for="bar3">21.05.2022 (11:20)</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" value="1"></td>
-                            <td>Bauhaus</td>
-                            <td>#2008</td>
-                            <td>21.05.2022 (13:35)</td>
+                            <!--Test-Label-->
+                            <td><input type="checkbox" name="foo" value="bar4" id="bar4"/></td>
+                            <td><label for="bar4">Bauhaus</label></td>
+                            <td><label for="bar4">#2008</label></td>
+                            <td><label for="bar4">21.05.2022 (13:35)</label></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" value="1"></td>
-                            <td>IKEA</td>
-                            <td>#2020</td>
-                            <td>21.05.2022 (09:50)</td>
+                            <td><input type="checkbox" name="foo" value="bar5" id="bar5"></td>
+                            <td><label for="bar5">IKEA</label></td>
+                            <td><label for="bar5">#2020</label></td>
+                            <td><label for="bar5">21.05.2022 (09:50)</label></td>
                         </tr>
                     </tbody>    
                 </table>
                 <div class="ausgewählte Aufträge"> <!--Abfragen welche inputs aus Aufträge "an" sind-->
                     Ausgewählte Aufträge:
+
                 </div>
             </div>
         </div>
@@ -65,14 +71,62 @@
             </div>
             <div class="Auswahlliste">
                 <table>
-                    <tr><td><input checked type="checkbox">Durchlaufzeit</td></tr>
-                    <tr><td><input type="checkbox">Kosten</td></tr>
-                    <tr><td><input type="checkbox">Termintreue</td></tr>
+                    <tr><td><input checked type="checkbox" id="Durchlaufzeit">Durchlaufzeit</td></tr>
+                    <tr><td><input type="checkbox" id="Kosten">Kosten</td></tr>
+                    <tr><td><input type="checkbox" id="Termintreue">Termintreue</td></tr>
                 </table>
             </div>
             <div class="Button">
                 <input type="button" value="Ausführen">
             </div>
         </div>
+
+        <!--Alle Aufträge auswählen-->
+        <script language="JavaScript">
+            function toggle(source) {
+                checkboxes = document.getElementsByName('foo');
+                for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+                }
+                ausgabe
+              }
+        </script>
+
+        <!--Optimieren
+        Fehlt: Beim zweichfachen anklicken eines gecheckten 
+        -->
+        <script language="JavaScript">
+            window.onload = function() {
+                document.getElementById('Durchlaufzeit').onclick = update
+                document.getElementById('Kosten').onclick = update2
+                document.getElementById('Termintreue').onclick = update3
+            }
+            function update() {
+                if(document.getElementById('Durchlaufzeit').checked)
+                    document.getElementById('Kosten').checked = false
+                    document.getElementById('Termintreue').checked = false
+            }
+            function update2() {
+                if(document.getElementById('Kosten').checked)
+                    document.getElementById('Durchlaufzeit').checked = false
+                    document.getElementById('Termintreue').checked = false
+            }
+            function update3() {
+                if(document.getElementById('Termintreue').checked)
+                    document.getElementById('Durchlaufzeit').checked = false
+                    document.getElementById('Kosten').checked = false
+            }
+        </script>
+
+        <!--Ausgewählte Aufträge anzeigen-->
+        <script type="text/javascript">
+            function ausgabe(){
+                checkboxes = document.getElementsByName('foo');
+                for(var i=0, n=checkboxes.length;i<n;i++) {
+                if(checkboxes[i].checked)
+                    echo = checkboxes[i].id
+                }
+            }
+        </script>
     </body>
 </html>
