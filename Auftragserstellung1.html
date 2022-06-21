@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>Genetischer Algorithmus</title>
+
+        <style>
+            input:valid {
+                background-color:green;
+            }
+            input:invalid {
+                background-color: yellow;
+            }
+            input:required:invalid {
+                border-color: #c00000;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <form>
+            <div class="form-group">
+                <h3>Auftragserstellung:</h3>
+            </div>
+            <div class="form-group">
+                <label for="InputOrderID">AuftragsID:</label>
+                <input required type="text" class="form-control" pattern="#[0-9]{4}" id="InputOrderID" placeholder="#0001">
+            </div>
+            <div class="form-group">
+                <label for="InputClient">Auftraggeber:</label>
+                <input required type="text" class="form-control" id="InputClient" placeholder="Bauhaus">
+            </div>
+            <div class="form-group">
+                <label for="InputItemNumber">Artikelnummer:</label>
+                <input required type="text" class="form-control" pattern="#[0-9]{5}" id="InputItemNumber" placeholder="#00001">
+            </div>
+            <div class="form-group">
+                <label for="InputAmount">Menge:</label>
+                <input required type="number" class="form-control" min="1" max="1000" id="InputAmount" placeholder="max. 1000">
+            </div>
+            <div class="form-group">
+                <label for="InputColour">Farbe</label>
+                <select class="form-control" id="InputColour">
+                    <option selected>0</option>
+                    <option>Schwarz</option>
+                    <option>Gelb</option>
+                    <option>Blau</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="InputDate">Datum:</label>
+                <input required type="date" class="form-control" id="InputDate">
+                <label for="InputTime">Uhrzeit:</label>
+                <input required type="time" class="form-control" id="InputTime">
+            </div>
+        </form>
+    </body>
+</html>
