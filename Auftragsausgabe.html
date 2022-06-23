@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>Genetischer Algorithmus</title>
+
+        <style>
+            .back {
+                padding: 12px 24px;
+                background-color: dodgerblue;
+                color: white;
+                border-radius: 5px;
+                border: 1px solid black;
+            }
+            .pagination {
+                float: right; 
+            }
+            .pagination a {
+                color: black;
+                float: left;
+                border: 1px solid black;
+                padding: 12px 20px;
+                text-decoration: none;
+                transition: background-color .3s;
+            }
+            .pagination a.active {
+                background-color: dodgerblue;
+                color: white;
+            }
+            .pagination a:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+            .pagination a:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        </style>
+
+
+    </head>
+    <body>
+        <h3 style="color: #0053A6">(Gantt-Diagramm)</h3>
+        <div id="chart_div"></div>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['gantt']});
+            google.charts.setOnLoadCallback(drawChart);
+        
+            function daysToMilliseconds(days) {
+                return days * 24 * 60 * 60 * 1000;
+            }
+        
+            function drawChart() {
+        
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Task ID');
+                data.addColumn('string', 'Task Name');
+                data.addColumn('date', 'Start Date');
+                data.addColumn('date', 'End Date');
+                data.addColumn('number', 'Duration');
+                data.addColumn('number', 'Percent Complete');
+                data.addColumn('string', 'Dependencies');
+        
+                data.addRows([
+                    ['Arbeitschritt1.1', 'Walze 1',
+                        new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:25:00'), null, 100, null],
+                    ['Arbeitschritt1.2', 'Walze 2',
+                        new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:40:00'), null, 100, null],
+                    ['Arbeitschritt1.3', 'Walze 3',
+                        new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:25:00'), null, 100, null],
+        
+                    ['Arbeitschritt2.1', 'Drehen 1',
+                        new Date('December 17, 2020, 04:25:00'), new Date('December 17, 2020, 05:30:00'), null, null, 'Arbeitschritt1.1'],
+                    ['Arbeitschritt2.2', 'Drehen 2',
+                        new Date('December 17, 2020, 04:25:00'), new Date('December 17, 2020, 05:30:00'), null, null, 'Arbeitschritt1.3'],
+        
+                    ['Arbeitschritt3', 'Presse Kopf?',
+                        new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 05:30:00'),null, null, null],
+                    ['Arbeitschritt4', 'Presse Gewinde?',
+                        new Date('December 17, 2020, 05:30:00'), new Date('December 17, 2020, 06:30:00'),null, null, 'Arbeitschritt3'],
+                    ['Arbeitschritt5', 'Schweißen',
+                        new Date('December 17, 2020, 06:30:00'), new Date('December 17, 2020, 08:30:00'),null, null, 'Arbeitschritt4,Arbeitschritt2.2'],
+                    ['Arbeitschritt6', 'Beschichten',
+                        new Date('December 17, 2020, 08:30:00'), new Date('December 17, 2020, 09:30:00'),null, null, 'Arbeitschritt5'],
+                    ['Arbeitschritt7', 'Lackieren',
+                        new Date('December 17, 2020, 09:30:00'), new Date('December 17, 2020, 10:30:00'),null, null, 'Arbeitschritt5']
+        
+                ]);
+        
+                var options = {
+                    height: 600,
+                    gantt: {
+                        trackHeight: 50
+                    }
+                };
+        
+                var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+        
+                chart.draw(data, options);
+            }
+        </script>
+        <div class="form-group">
+            <button class="back">Zurück</button>
+            <div class="pagination">
+                <a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+            </div>
+        </div>
+    </body>
+</html>
