@@ -1,0 +1,30 @@
+<!doctype html">
+<html>
+<head>
+<title>Wertübergabe mittels window.name - Empfangendes Dokument</title>
+<script src="src/storage.js"></script>
+<script>
+var liste = storage.getAll();
+</script>
+</head>
+<body>
+
+<h1>Übergebene Daten</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Feldname</th>
+    <th>Eintrag</th>
+  </tr>
+  <script type="text/javascript">
+  for (var eigenschaft in liste) {
+    document.write(
+      "<tr><td>" + eigenschaft + "</td>" +
+      "<td><code>" + liste[eigenschaft] + "</code></td></tr>"
+    );
+  }
+  </script>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<script language="javaScript">
+    function addRow() {
+        // Beschaffe eine Referenz auf die Tabelle
+        let tableRef = document.getElementsByClassName("table table-sort")[0]; //Elements
+
+        // Füge am Ende der Tabelle eine neue Zeile an
+        let newRow = tableRef.insertRow(-1);
+
+        // Erstelle in der Zeile eine Zelle am Index 0
+        let cell0 = newRow.insertCell(0);
+        let cell1 = newRow.insertCell(1);
+        let cell2 = newRow.insertCell(2);
+        let cell3 = newRow.insertCell(3);
+        let cell4 = newRow.insertCell(4);
+        let cell5 = newRow.insertCell(5);
+        let cell6 = newRow.insertCell(6);
+
+        // Füge der Zelle einen textnode hinzu
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "foo";
+        checkbox.id = document.querySelector("InputOrderID");
+        
+        text0 = checkbox;
+        let text1 = document.createTextNode(document.querySelector("#InputOrderID").value);
+        let text2 = document.createTextNode(document.querySelector("#InputClient").value);
+        let text3 = document.createTextNode(document.querySelector("#InputItemNumber").value);
+        let text4 = document.createTextNode(document.querySelector("#InputAmount").value);
+        let text5 = document.createTextNode(document.querySelector("#InputColour").value);
+        let text6 = document.createTextNode(document.querySelector("#InputTime").value);
+
+        cell0.appendChild(text0);
+        cell1.appendChild(text1);
+        cell2.appendChild(text2);
+        cell3.appendChild(text3);
+        cell4.appendChild(text4);
+        cell5.appendChild(text5);
+        cell6.appendChild(text6);
+    }
+</script>

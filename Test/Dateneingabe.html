@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<title>Wertübergabe mittels window.name - Sendendes Dokument</title>
+</head>
+<body>
+<script type="text/javascript" src="src/storage.js"></script>
+<script type="text/javascript">
+function sichern () {
+	storage.set("vorname", document.forms.formular.elements.vorname.value);
+	storage.set("nachname", document.forms.formular.elements.nachname.value);
+	location.href = "Ausgabe.html";
+}
+</script>
+
+<form name="formular" action="" onsubmit="sichern(); return false;">
+  <p>Wie heißen Sie?</p>
+  <p>
+    <label for="vorname">Vorname:</label>
+    <input required type="text" name="vorname" id="vorname" size="25">
+  </p>
+  <p>
+    <label for="nachname">Nachname:</label>
+    <input required type="text" name="nachname" id="nachname" size="25">
+  </p>
+  <p><input type="submit" value="Senden"></p>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>Genetischer Algorithmus</title>
+
+        <style>
+            input:valid {
+                background-color:green;
+            }
+
+            input:required:invalid {
+                border-color: #c00000;
+                background-color: yellow;
+            }
+
+            input[type='number']{
+                width: 60px;
+            }
+
+            [data-tab-content] {
+                display: none;
+            }
+
+            .active[data-tab-content]{
+                display: block;
+            }
+
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .tabs {
+                display: flex;
+                justify-content: space-around;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                border-bottom: 3px solid black;
+            }
+
+            .tab {
+                cursor: pointer;
+                padding: 10px;
+            }
+
+            .tab.active {
+                background-color: #ccc;
+            }
+
+            .tab:hover {
+                background-color: #aaa;
+            }
+
+            .back {
+                padding: 12px 24px;
+                background-color: dodgerblue;
+                color: white;
+                border-radius: 5px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+
+        
+        <form name="formular" action="" onsubmit="sichern(); return false;"> <!-- aus "Storage-Datei" -->
+
+            <div class="form-group">
+                <h1 style="color: #0053A6">Eingabe</h1>
+            </div>
+            
+            <div class="form-group">
+                <label for="InputOrderID">AuftragsID:</label>
+                <input required type="text" class="form-control" pattern="#[0-9]{4}" id="InputOrderID" placeholder="#0001" size="5">
+            </div>
+            <div class="form-group">
+                <label for="InputClient">Auftraggeber:</label>
+                <input required type="text" class="form-control" id="InputClient" placeholder="Bauhaus">
+            </div>
+            <div class="form-group">
+                <label for="InputItemNumber">Artikelnummer:</label>
+                <input required type="text" class="form-control" pattern="#[0-9]{5}" id="InputItemNumber" placeholder="#00001" size="6">
+            </div>
+            <div class="form-group">
+                <label for="InputAmount">Menge:</label>
+                <input required type="number" class="form-control" min="1" max="1000" id="InputAmount" placeholder="1-1000">
+            </div>
+            <div class="form-group">
+                <label for="InputColour">Farbe</label>
+                <select class="form-control" id="InputColour">
+                    <option selected>0</option>
+                    <option>Schwarz</option>
+                    <option>Gelb</option>
+                    <option>Blau</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="InputTime">Uhrzeit:</label>
+                <input required type="time" class="form-control" id="InputTime">
+            </div>
+        </form>
+
+
+        <table class="table table-sort">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Autragsgeber</th>
+                    <th>Artikelnummer</th>
+                    <th>Menge</th>
+                    <th>Farbe</th>
+                    <th>Uhrzeit</th>
+                </tr>
+                </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" onclick="auswahl()" id="#2000" name="foo"></td>
+                    <td>2000</td>
+                    <td>OBI</td>
+                    <td>1</td>
+                    <td>100</td>
+                    <td>schwarz</td>
+                    <td>9:30</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" onclick="auswahl()" id="#2000" name="foo"></td>
+                    <td>2001</td>
+                    <td>OBI</td>
+                    <td>1</td>
+                    <td>100</td>
+                    <td>blau</td>
+                    <td>09:20</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" onclick="auswahl()" id="#2000" name="foo"></td>
+                    <td>2002</td>
+                    <td>OBI</td>
+                    <td>1</td>
+                    <td>100</td>
+                    <td>blau</td>
+                    <td>09:30</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Der Button funktioniert -->
+        <button onclick="sichern();" type="submit">ausführen</button> <!-- addRow(); -->
+
+
+        <script language="javaScript" src="src/storage.js"></script> <!-- aus "Storage-Datei" -->
+        
+        <script language="javaScript">
+            // function addRow() {
+            //     //ZU SCHAUEN OB FUNKTIONIERT
+            //     // Beschaffe eine Referenz auf die Tabelle
+            //     let tableRef = document.getElementsByClassName("table table-sort")[0]; //Elements
+
+            //     // Füge am Ende der Tabelle eine neue Zeile an
+            //     let newRow = tableRef.insertRow(-1);
+
+            //     // Erstelle in der Zeile eine Zelle am Index 0
+            //     let cell0 = newRow.insertCell(0);
+            //     let cell1 = newRow.insertCell(1);
+            //     let cell2 = newRow.insertCell(2);
+            //     let cell3 = newRow.insertCell(3);
+            //     let cell4 = newRow.insertCell(4);
+            //     let cell5 = newRow.insertCell(5);
+            //     let cell6 = newRow.insertCell(6);
+
+            //     // Füge der Zelle einen textnode hinzu
+            //     var checkbox = document.createElement("input");
+            //     checkbox.type = "checkbox";
+            //     checkbox.name = "foo";
+            //     checkbox.id = document.querySelector("InputOrderID");
+                
+            //     text0 = checkbox;
+            //     let text1 = document.createTextNode(document.querySelector("#InputOrderID").value);
+            //     let text2 = document.createTextNode(document.querySelector("#InputClient").value);
+            //     let text3 = document.createTextNode(document.querySelector("#InputItemNumber").value);
+            //     let text4 = document.createTextNode(document.querySelector("#InputAmount").value);
+            //     let text5 = document.createTextNode(document.querySelector("#InputColour").value);
+            //     let text6 = document.createTextNode(document.querySelector("#InputTime").value);
+
+            //     cell0.appendChild(text0);
+            //     cell1.appendChild(text1);
+            //     cell2.appendChild(text2);
+            //     cell3.appendChild(text3);
+            //     cell4.appendChild(text4);
+            //     cell5.appendChild(text5);
+            //     cell6.appendChild(text6);
+            // }
+
+
+            function sichern() {
+
+                //später noch checkbox
+                storage.set("InputOrderID", document.forms.formular.elements.InputOrderID.value);
+                storage.set("InputClient", document.forms.formular.elements.InputClient.value);
+                storage.set("InputItemNumber", document.forms.formular.elements.InputItemNumber.value);
+                storage.set("InputAmount", document.forms.formular.elements.InputAmount.value);
+                storage.set("InputColour", document.forms.formular.elements.InputColour.value);
+                storage.set("InputTime", document.forms.formular.elements.InputTime.value);
+                
+                
+
+                location.href = "index.html"; //von hier aus funktion aufrufen?
+            }
+        </script>
+        
+    </body>
+</html>
