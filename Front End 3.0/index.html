@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      
+      <title> Genetischer Algorithmus </title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" 
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+      crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" 
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+      crossorigin="anonymous">
+      <link rel="stylesheet" href="./src/tablesort.css">
+      <link rel="stylesheet" href="./src/tabs.css">
+      <link rel="stylesheet" href="./src/ausgabe.css">
+    
+    </head>
+
+    <body>
+        <ul class="tabs">
+            <li data-tab-target="#Start" class="active tab">Konfiguration</li>
+            <li data-tab-target="#Eingabe" class="tab">Auftragserstellung</li>
+            <li class="tab">Produktionsplan</li> <!--data-tab-target="#Ausgabe"-->
+        </ul>
+    <div class="container">
+        
+    
+        <div class="tab-content">
+            <div id="Start" data-tab-content class="active">
+            <h1> Konfiguration </h1>
+            <input type="checkbox" onClick="toggle(this)">
+            Alle Aufträge Auswählen
+    
+            <div class="table-responsive">  <!--Table-->
+            <table class="table table-sortable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Auftragsnummer</th>
+                    <th>Autragsgeber</th>
+                    <th>Artikelnummer</th>
+                    <th>Menge</th>
+                    <th>Farbe</th>
+                    <th>Uhrzeit</th>
+                </tr>
+                </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" onclick="auswahl()" id="#2000" name="foo"></td>
+                    <td>#2000</td>
+                    <td>OBI</td>
+                    <td>#10002</td>
+                    <td>100</td>
+                    <td>Schwarz</td>
+                    <td>09:00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" onclick="auswahl()" id="#2002" name="foo"></td>
+                    <td>#2001</td>
+                    <td>OBI</td>
+                    <td>#10003</td>
+                    <td>100</td>
+                    <td>Blau</td>
+                    <td>08:30</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" onclick="auswahl()" id="#2001" name="foo"></td>
+                    <td>#2002</td>
+                    <td>Bauhaus</td>
+                    <td>#10004</td>
+                    <td>100</td>
+                    <td>Blau</td>
+                    <td>09:00</td>
+                </tr>
+            </tbody>
+            </table>                    
+         </div>                 
+
+            <div class="ausgewählte Aufträge">  <!--Abfragen welche inputs aus Aufträge "an" sind-->
+                                         
+                Ausgewählte Aufträge:
+                <b><p id="ausgewählteAufträge"></p></b>
+            </div>
+                <div class="Optimieren">
+                <div>
+                    Optimieren nach:
+                </div>
+            <div class="Auswahlliste" role="group">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                Durchlaufzeit
+            </label>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                Termintreue
+            </label>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                <label class="form-check-label" for="flexRadioDefault3">
+                Kosten
+            </label>
+            </div>
+
+            <p></p>
+            Genetischen Algorithmus konfigurieren:
+            <br>
+            <label for="Population">Populationsgröße:</label>
+            <input required type="number" class="form-control" min="20" max="100" id="Population" placeholder="20 - 100">
+            
+            <label for="mutationRate">Mutationsrate:</label>
+            <input required type="number" class="form-control" min="0.05" max="0.2" id="mutationRate" placeholder="0.05 - 0.2">
+
+            <label for="cycles">Maximale Durchlaufzeit:</label>
+            <input required type="number" class="form-control" min="1" max="5" id="cycles" placeholder="1 - 5 min.">
+
+
+            <div class="Button">    <!--Ausführen-->
+                <input type="button" onclick="produktionsausgabe();" value="Ausführen">
+            </div>       
+           
+        </div>
+        </div>
+        <div id="Eingabe" data-tab-content >
+            <h1> Auftragserstellung </h1>
+            
+            <form name="formular" action="">
+                
+                <div class="form-group">
+                    <label for="InputOrderID">AuftragsID:</label>
+                    <input required type="text" class="form-control" pattern="#[0-9]{4}" id="InputOrderID" placeholder="#0001" size="5">
+                </div>
+                <div class="form-group">
+                    <label for="InputClient">Auftraggeber:</label>
+                    <input required type="text" class="form-control" id="InputClient" placeholder="Bauhaus">
+                </div>
+                <div class="form-group">
+                    <label for="InputItemNumber">Artikelnummer:</label>
+                    <input required type="text" class="form-control" pattern="#[0-9]{5}" id="InputItemNumber" placeholder="#00001" size="6">
+                </div>
+                <div class="form-group">
+                    <label for="InputAmount">Menge:</label>
+                    <input required type="number" class="form-control" min="1" max="1000" id="InputAmount" placeholder="1-1000">
+                </div>
+                <div class="form-group">
+                    <label for="InputColour">Farbe</label>
+                    <select class="form-control" id="InputColour">
+                        <option selected>Standard</option>
+                        <option>Schwarz</option>
+                        <option>Gelb</option>
+                        <option>Blau</option>
+                    </select>
+                <div class="form-group">
+                    <label for="InputTime">Uhrzeit:</label>
+                    <input required type="time" class="form-control" id="InputTime">
+                </div>
+
+                    <button onclick="sichern(); return false;" data-tab-target="#Start" type="submit" id="Autraghinzufügen">Auftrag hinzufügen</button> <!-- Funktionen zusammenlegen? -->
+
+                </div>
+                
+            </form>
+            
+        </div>
+
+        <div id="Ausgabe" data-tab-content>
+            <h1> Produktionsplan </h1>
+            
+        <!-- <div id="chart_div"></div>
+
+            <div class="w-100 p-3">
+        
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+               
+                <script type="text/javascript">
+                google.charts.load("current", {packages:["timeline"]});
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                
+                    var container = document.getElementById('example3.1');
+                    var chart = new google.visualization.Timeline(container);
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn({ type: 'string', id: 'Position' });
+                    dataTable.addColumn({ type: 'string', id: 'Name' });
+                    dataTable.addColumn({ type: 'date',  id: 'Start' });
+                    dataTable.addColumn({ type: 'date', id: 'End' });
+                
+                    dataTable.addRows([
+                
+                    [ 'Walze 1', '#2002' , new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:25:00') ],
+                    ['Walze 2', '#2001', new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:28:00')],
+                    ['Walze 3', '#2000', new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:46:00')],
+                
+                    ['Drehen 1', '#2002', new Date('December 17, 2020, 04:25:00'), new Date('December 17, 2020, 05:40:00')],
+                    ['Drehen 1', '#2000', new Date('December 17, 2020, 05:40:00'), new Date('December 17, 2020, 06:40:00')],
+                    ['Drehen 2', '#2001', new Date('December 17, 2020, 04:28:00'), new Date('December 17, 2020, 05:58:00')],
+                
+                    ['Pesse Kopf 1', '#2002', new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:46:00')],
+                    ['Presse Kopf 2', '#2001', new Date('December 17, 2020, 03:24:00'), new Date('December 17, 2020, 04:18:00')],
+                    ['Presse Kopf 2', '#2000', new Date('December 17, 2020, 04:18:00'), new Date('December 17, 2020, 05:08:00')],
+                
+                    ['Presse Gewinde 1', '#2001', new Date('December 17, 2020, 04:18:00'), new Date('December 17, 2020, 05:38:00')],
+                    ['Presse Gewinde 2', '#2000', new Date('December 17, 2020, 05:08:00'), new Date('December 17, 2020, 05:28:00')],
+                    ['Presse Gewinde 2', '#2002', new Date('December 17, 2020, 05:28:00'), new Date('December 17, 2020, 6:16:00')],
+                
+                    ['Schweißen 1', '#2001', new Date('December 17, 2020, 05:58:00'), new Date('December 17, 2020, 6:36:00')],
+                    ['Schweißen 1', '#2002', new Date('December 17, 2020, 06:36:00'), new Date('December 17, 2020, 7:09:00')],
+                    ['Schweißen 1', '#2000', new Date('December 17, 2020, 07:09:00'), new Date('December 17, 2020, 7:24:00')],
+                
+                    ['Beschichten 1', '#2001', new Date('December 17, 2020, 06:36:00'), new Date('December 17, 2020, 7:24:00')],
+                    ['Beschichten 1', '#2000', new Date('December 17, 2020, 07:24:00'), new Date('December 17, 2020, 8:06:00')],
+                    ['Beschichten 2', '#2002', new Date('December 17, 2020, 07:09:00'), new Date('December 17, 2020, 8:06:00')],
+                
+                    ['Lackieren 1', '#2001', new Date('December 17, 2020, 07:24:00'), new Date('December 17, 2020, 8:30:00')],
+                    ['Lackieren 1', '#2002', new Date('December 17, 2020, 08:30:00'), new Date('December 17, 2020, 9:00:00')],
+                    ['Lackieren 2', '#2000', new Date('December 17, 2020, 08:06:00'), new Date('December 17, 2020, 9:00:00')],
+                
+                    ]);
+                
+                    chart.draw(dataTable);
+                
+                    var options = {
+                        height: 800
+                        }
+                }
+                </script>
+
+                
+                <div id="example3.1" style="height: 800px;"></div>
+            </div>
+            </script> -->
+
+        <div class="form-group">
+            <button data-tab-target="#Start" class="back">Zurück</button>
+            <div class="pagination">
+                <a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+            </div>
+        </div>
+    </div>
+
+
+<!--Verlinkung zu den Scripten-->
+        <script src="./src/safeAuftrag.js"></script>
+        <script src="./src/zurück.js"></script>
+        <script src="./src/storage.js"></script>
+        <script src="./src/addRow.js"></script>
+        <script src="./src/tabs.js"></script>
+        <script src="./src/tablesort.js"></script>
+        <script src="./src/selectAll.js"></script>
+        <script src="./src/showAuftrag.js"></script>
+
+        <script language="javaScript">
+            function produktionsausgabe() {
+                location.href = "Produktionsplan.html";
+            }
+        </script>
+    </body>
+
+</html>
